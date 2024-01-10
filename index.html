@@ -13,15 +13,19 @@
 <body>
     <div class="container padding-30px">
         <div class="centralizar padding-bot-30px">
-            <label for="valor-palpitado">Palpite um valor</label>
-            <input class="input" type="number" id="valor-palpitado" min="0">
-        </div>       
+            <div>
+                <div class="alinhar-centro">Palpite um valor</div>
+                <input class="input" type="number" id="valor-palpitado" min="0">
+            </div>
+        </div>
         <div id="resultado">
 
         </div>
-        <div>
-            <div id="btn-enviar" class="botao">Enviar</div>
-            <div id="btn-limpar" class="botao">Limpar Palpites</div>
+        <div class="container-botoes">
+            <div class="centralizar space-between">
+                <div id="btn-limpar" class="botao">Limpar Palpites</div>
+                <div id="btn-enviar" class="botao">Enviar</div>
+            </div>
         </div>
     </div>
 </body>

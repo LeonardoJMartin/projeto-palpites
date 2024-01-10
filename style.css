@@ -26,7 +26,7 @@ html {
 }
 
 .botao{
-    max-width: 200px;
+    width: 200px;
     padding: 20px 40px;
     background-color: aqua;
     border-radius: 20px;
@@ -48,4 +48,25 @@ html {
 
 .padding-direita-4px{
     padding-right: 4px;
+}
+
+.space-between {
+    justify-content: space-between;
+    display: flex;
+}
+
+.space-between-column {
+    flex-direction: column;
+    justify-content: space-between;
+    display: flex;
+}
+
+.container-botoes{
+    max-width: 50%;
+    margin: 0 auto;
+    padding-top: 100px;
+}
+
+.alinhar-centro{
+    text-align: center;
 }

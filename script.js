@@ -9,15 +9,16 @@ var informacoes = {
 };
 var string = "";
 
-var moeda = "ADA_BRL";
 var casasDecimais = 4;
 
-//module.exports = {moeda};
+const { iniciarIntervalo } = require('./verificaprecos');
 
 $(document).ready(function () {
+    iniciarIntervalo();
     string = localStorage.getItem("palpites");
     if(string != null){
-        $('#resultado').html(string);
+        listaInfo = JSON.parse(string);
+        preencheHtml();
     }
     
     $('#btn-limpar').click(limparDados)
@@ -28,6 +29,7 @@ $(document).ready(function () {
         info.palpite = parseFloat($('#valor-palpitado').val());
         listaInfo.push(info);
         listaInfo.sort((a, b) => a.palpite - b.palpite);
+        
         console.log(listaInfo);
         verificaRaio();
         preencheHtml();
@@ -75,12 +77,8 @@ $(document).ready(function () {
             i.raioTotal +
             "</div>"
         }
-        salvaDados(string);
+        salvaDados();
         $('#resultado').html(string);
-    }
-
-    function verificaPreco(){
-       
     }
 
     function limparDados(){
@@ -89,9 +87,11 @@ $(document).ready(function () {
         $('#resultado').html(string);
     }
 
-    function salvaDados(string){
-        localStorage.setItem("palpites", string);
+    function salvaDados(){
+        let jsonString = JSON.stringify(listaInfo);
+        localStorage.setItem("palpites", jsonString);
     }
+
 });
 
 
