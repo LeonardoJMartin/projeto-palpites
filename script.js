@@ -7,13 +7,15 @@ var informacoes = {
     raioMaximo: 0,
     raioTotal: 0,
 };
+
+var casasDecimais = 4;
+
 $(document).ready(function () {
 
     $('#btn-enviar').click(armazenaValores);
     
     function armazenaValores(){
-        let info = {};
-        info.nome = $('#nome-palpitador').val()
+        let info = {};      
         info.palpite = parseFloat($('#valor-palpitado').val());
         listaInfo.push(info);
         listaInfo.sort((a, b) => a.palpite - b.palpite);
@@ -36,10 +38,12 @@ $(document).ready(function () {
                 participante.raioMinimo = 0;
             }
             if (proximoParticipante) { // se tiver proximo participante
-                participante.raioMaximo = (participante.palpite + proximoParticipante.palpite) / 2;
-                proximoParticipante.raioMinimo = participante.raioMaximo + 0.01;
+                participante.raioMaximo = parseFloat(((participante.palpite + proximoParticipante.palpite) / 2).toFixed(casasDecimais));
+                proximoParticipante.raioMinimo = (participante.raioMaximo + 0.0001).toFixed(casasDecimais);
+                participante.raioTotal = (participante.raioMaximo - participante.raioMinimo).toFixed(casasDecimais);
             } else { // se tiver for o ultimo participante
                 participante.raioMaximo = Infinity;
+                participante.raioTotal = Infinity;
             }
 
             console.log(`${participante.nome} ganharia do ${participante.raioMinimo} ao ${participante.raioMaximo}`);
@@ -50,13 +54,16 @@ $(document).ready(function () {
         let string = "";
         for(let i of listaInfo){
             string += 
-            "<div class='centralizar'>" + 
-            i.nome + 
-            " ganha do " + 
+            "<div class='centralizar'>" +
+            "<strong class='padding-direita-4px'>Palpite:</strong>" + 
+            i.palpite + 
+            ". " + 
+            "<strong class='padding-direita-4px padding-esquerda-4px'>Ganha</strong> do " + 
             i.raioMinimo + 
             " ao " + 
             i.raioMaximo + 
-            "." +
+            ". <strong class='padding-direita-4px padding-esquerda-4px'>Raio total:</strong> " +
+            i.raioTotal +
             "</div>"
         }
         
@@ -64,3 +71,5 @@ $(document).ready(function () {
     }
 
 });
+
+

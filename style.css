@@ -41,3 +41,11 @@ html {
 .input{
     height: 30px;
 }
+
+.padding-esquerda-4px{
+    padding-left: 2px;
+}
+
+.padding-direita-4px{
+    padding-right: 4px;
+}
