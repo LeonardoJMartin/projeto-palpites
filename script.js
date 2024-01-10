@@ -19,6 +19,7 @@ $(document).ready(function () {
         listaInfo.sort((a, b) => a.palpite - b.palpite);
         console.log(listaInfo);
         verificaRaio();
+        preencheHtml();
     }
 
     /*function verificaOrdem(info){
@@ -43,6 +44,23 @@ $(document).ready(function () {
 
             console.log(`${participante.nome} ganharia do ${participante.raioMinimo} ao ${participante.raioMaximo}`);
         }
+    }
+
+    function preencheHtml(){
+        let string = "";
+        for(let i of listaInfo){
+            string += 
+            "<div class='centralizar'>" + 
+            i.nome + 
+            " ganha do " + 
+            i.raioMinimo + 
+            " ao " + 
+            i.raioMaximo + 
+            "." +
+            "</div>"
+        }
+        
+        $('#resultado').html(string);
     }
 
 });
