@@ -1,23 +1,24 @@
 const axios = require('axios');
 
-let response = null;
-new Promise(async (resolve, reject) => {
+const { moeda } = require('./script');
+
+async function getSymbolInfo(moeda) {
+  const endpoint = `/market/ticker`;
+  const url = `https://api.novadax.com/v1${endpoint}`;
+
   try {
-    response = await axios.get('https://sandbox-api.coinmarketcap.com/v1/cryptocurrency/listings/latest', {
-      headers: {
-        'X-CMC_PRO_API_KEY': 'd77632a9-97bc-4058-8e7d-4e94289414bd',
-      },
-    });
-  } catch(ex) {
-    response = null;
-    // error
-    console.log(ex);
-    reject(ex);
+    // Faz a solicitação GET
+    const response = await axios.get(url, { params: { symbol } });
+
+    // Manipula a resposta
+    console.log('Informações do símbolo:');
+    console.log(response.data.data);
+  } catch (error) {
+    // Manipula erros
+    console.error(`Erro na solicitação: ${error.response.status}`);
+    console.error(error.response.data);
   }
-  if (response) {
-    // success
-    const json = response.data;
-    console.log(json);
-    resolve(json);
-  }
-});
+}
+
+// Chama a função para obter informações do símbolo
+getSymbolInfo(moeda);

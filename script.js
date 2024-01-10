@@ -7,11 +7,20 @@ var informacoes = {
     raioMaximo: 0,
     raioTotal: 0,
 };
+var string = "";
 
+var moeda = "ADA_BRL";
 var casasDecimais = 4;
 
-$(document).ready(function () {
+//module.exports = {moeda};
 
+$(document).ready(function () {
+    string = localStorage.getItem("palpites");
+    if(string != null){
+        $('#resultado').html(string);
+    }
+    
+    $('#btn-limpar').click(limparDados)
     $('#btn-enviar').click(armazenaValores);
     
     function armazenaValores(){
@@ -51,7 +60,7 @@ $(document).ready(function () {
     }
 
     function preencheHtml(){
-        let string = "";
+        limparDados();
         for(let i of listaInfo){
             string += 
             "<div class='centralizar'>" +
@@ -66,10 +75,23 @@ $(document).ready(function () {
             i.raioTotal +
             "</div>"
         }
-        
+        salvaDados(string);
         $('#resultado').html(string);
     }
 
+    function verificaPreco(){
+       
+    }
+
+    function limparDados(){
+        localStorage.removeItem("palpites");
+        string = "";
+        $('#resultado').html(string);
+    }
+
+    function salvaDados(string){
+        localStorage.setItem("palpites", string);
+    }
 });
 
 
