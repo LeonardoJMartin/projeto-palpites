@@ -11,17 +11,14 @@ var string = "";
 
 var casasDecimais = 4;
 
-const { iniciarIntervalo } = require('./verificaprecos');
-
 $(document).ready(function () {
-    iniciarIntervalo();
     string = localStorage.getItem("palpites");
     if(string != null){
         listaInfo = JSON.parse(string);
         preencheHtml();
     }
     
-    $('#btn-limpar').click(limparDados)
+    $('#btn-limpar').click(clicarLimpar)
     $('#btn-enviar').click(armazenaValores);
     
     function armazenaValores(){
@@ -79,6 +76,11 @@ $(document).ready(function () {
         }
         salvaDados();
         $('#resultado').html(string);
+    }
+
+    function clicarLimpar(){
+        limparDados();
+        listaInfo = [];
     }
 
     function limparDados(){
