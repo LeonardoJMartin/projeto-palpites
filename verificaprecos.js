@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 // Substitua com o símbolo desejado
-const symbol = 'BTC_BRL';
+const symbol = 'ADA_BRL';
 
 // Função para obter informações básicas de um símbolo
 async function getSymbolInfo(symbol) {

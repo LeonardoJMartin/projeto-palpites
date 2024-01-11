@@ -47,8 +47,8 @@ $(document).ready(function () {
             }
             if (proximoParticipante) { // se tiver proximo participante
                 participante.raioMaximo = parseFloat(((participante.palpite + proximoParticipante.palpite) / 2).toFixed(casasDecimais));
-                proximoParticipante.raioMinimo = (participante.raioMaximo + 0.0001).toFixed(casasDecimais);
-                participante.raioTotal = (participante.raioMaximo - participante.raioMinimo).toFixed(casasDecimais);
+                proximoParticipante.raioMinimo = parseFloat((participante.raioMaximo + 0.0001).toFixed(casasDecimais));
+                participante.raioTotal = parseFloat((participante.raioMaximo - participante.raioMinimo).toFixed(casasDecimais));
             } else { // se tiver for o ultimo participante
                 participante.raioMaximo = Infinity;
                 participante.raioTotal = Infinity;
@@ -61,19 +61,21 @@ $(document).ready(function () {
     function preencheHtml(){
         limparDados();
         for(let i of listaInfo){
+            i.raioTotal = i.raioTotal != null && i.raioTotal != Infinity ? parseFloat(i.raioTotal.toFixed(casasDecimais)) : i.raioTotal; 
+            i.raioMaximo = i.raioMaximo != null && i.raioMaximo != Infinity ? parseFloat(i.raioMaximo.toFixed(casasDecimais)) : i.raioMaximo;
             string += 
             "<div class='centralizar'>" +
             "<strong class='padding-direita-4px'>Palpite:</strong>" + 
-            i.palpite + 
-            ". " + 
-            "<strong class='padding-direita-4px padding-esquerda-4px'>Ganha</strong> do " + 
-            i.raioMinimo + 
+            i.palpite.toFixed(casasDecimais) +  
+            "<strong class='padding-direita-4px padding-esquerda-8px'>Ganha:</strong>" + 
+            i.raioMinimo.toFixed(casasDecimais) + 
             " ao " + 
             i.raioMaximo + 
-            ". <strong class='padding-direita-4px padding-esquerda-4px'>Raio total:</strong> " +
+            "<strong class='padding-direita-4px padding-esquerda-8px'>Raio total:</strong> " +
             i.raioTotal +
             "</div>"
         }
+        string += "<p class='centralizar'><strong>"+listaInfo.length+" Palpites</strong></p>";
         salvaDados();
         $('#resultado').html(string);
     }
