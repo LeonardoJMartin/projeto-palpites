@@ -1,33 +1,26 @@
 const axios = require('axios');
 
+// Substitua com o símbolo desejado
+const symbol = 'BTC_BRL';
+
+// Função para obter informações básicas de um símbolo
 async function getSymbolInfo(symbol) {
   const endpoint = `/market/ticker`;
   const url = `https://api.novadax.com/v1${endpoint}`;
 
   try {
+    // Faz a solicitação GET
     const response = await axios.get(url, { params: { symbol } });
-    console.log('Informações do símbolo:');
-    console.log(response.data.data);
-    return response.data.data;
+
+    // Manipula a resposta
+    console.log('Valor da moeda:');
+    console.log(response.data.data.lastPrice);
   } catch (error) {
+    // Manipula erros
     console.error(`Erro na solicitação: ${error.response.status}`);
     console.error(error.response.data);
-    throw error;
   }
 }
 
-function iniciarIntervalo() {
-  setInterval(async function () {
-    try {
-      const data = await getSymbolInfo('ADA_BRL');
-      // Preencha os dados no HTML ou faça o que for necessário com os dados
-      console.log('Dados obtidos em verificaprecos.js:');
-      console.log(data);
-    } catch (error) {
-      console.error('Erro em verificaprecos.js:');
-      console.error(error);
-    }
-  }, 30000);
-}
-
-module.exports = { iniciarIntervalo };
+// Chama a função para obter informações do símbolo
+getSymbolInfo(symbol);
